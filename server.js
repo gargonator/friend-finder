@@ -4,7 +4,7 @@ const path = require('path');
 
 // initialize express application to respond to client requests
 var app = express();
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 // set up body parser package to parse data
 app.use(bodyParser.urlencoded({ extended: false}));
