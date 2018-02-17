@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Ultimate Friend Finder - Survey</title>
+	<!-- jQuery -->
+	<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<h2>Fill out the survey below.</h2>
+	<form>
+		Full name:
+		<input type='text' name='name'><br><br>
+		Picture:
+		<input type='text' name='picture_url'>
+	</form>
+	<br><br>
+	<h3>Question 1</h3>
+	<form>
+		<input type='radio' id='choice1'  value='1' name='q1'>
+		<input type='radio' id='choice2' value ='2' name='q1'>
+		<input type='radio' id='choice3' value ='3' name='q1'>
+		<input type='radio' id='choice4' value ='4' name='q1'>
+		<input type='radio' id='choice5' value= '5' name='q1'>
+	</form>
+	<h3>Question 2</h3>
+	<form>
+		<input type='radio' id='choice1' value='1' name='q2'>
+		<input type='radio' id='choice2' value='2' name='q2'>
+		<input type='radio' id='choice3' value='3' name='q2'>
+		<input type='radio' id='choice4' value='4' name='q2'>
+		<input type='radio' id='choice5' value='5' name='q2'>
+	</form>
+	<h3>Question 3</h3>
+	<form>
+		<input type='radio' id='choice1' value='1' name='q3'>
+		<input type='radio' id='choice2' value='2' name='q3'>
+		<input type='radio' id='choice3' value='3' name='q3'>
+		<input type='radio' id='choice4' value='4' name='q3'>
+		<input type='radio' id='choice5' value='5' name='q3'>
+	</form>
+	<br><br>
+	<button type='submit'>Submit</button>
+
+	<script type='text/javascript'>
+
+		var questions = ['q1','q2','q3'];
+
+		$('button[type=submit]').on('click', (e) => {
+
+			var input = {};
+			var responses = [];
+			input.name = $('input[name=name]').val();
+			input.picture = $('input[name=picture_url').val();
+			questions.forEach((question) => {
+				responses.push(parseInt($(`input[name=${question}]:checked`).val()));
+			})
+			input.responses = responses;
+			console.log(input);
+
+			$.post('api/friends', input, (res) => {
+				console.log(res);
+			});
+
+		})
+
+	</script>
+</body>
+</html>
