@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Ultimate Friend Finder - Survey</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- jQuery -->
+	<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+	<!-- Bootstrap Javascript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- Main stylesheet -->
+	<link rel='stylesheet' type='text/css' href='/css/survey'>
+</head>
+<body>
+	<div class='container'>
+		<!-- Page heading -->
+		<h2>Ultimate Friend Finder Survey</h2>
+		<!-- Basic info form group -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Basic information</h3>
+		  </div>
+		  <div class="panel-body" id='basic-info'>
+				<form>
+				  <div class="form-group">
+				    <label>Name</label>
+				    <input type="name" class="form-control" placeholder="Enter your full name here">
+				  </div>
+				  <div class="form-group">
+				    <label>Picture link</label>
+				    <input type="picture" class="form-control" placeholder="Enter a link to your picture">
+				  </div>
+				</form>
+		  </div>
+		</div>
+	<!-- Survey questions form group -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Survey questions</h3>
+		  </div>
+		  <div class="panel-body" id='survey-questions'>
+				<!-- Questions go here -->
+		  </div>
+		</div>
+		<!-- Submission button -->
+		<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
+	     Submit responses</button>
+	 	<!-- Footer -->
+		<footer>
+			<p>&copy B. Garg 2018</p>
+		</footer>
+		<!-- Modal -->
+		<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Your match</h4>
+		      </div>
+		      <div class="modal-body">
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</div><!-- /.container -->
+
+	<!-- Scripts -->
+	<script src='/js/questions' type='text/javascript'></script>
+	<script src='/js/helper_functions' type='text/javascript'></script>
+	<script src='/js/init' type='text/javascript'></script>
+</body>
+</html>

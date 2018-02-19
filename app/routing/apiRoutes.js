@@ -6,39 +6,56 @@ var path = require('path');
 
 module.exports = function(app) {
 
+	// returns JSON of all friends that have submitted surveys
 	app.get('/api/friends', (req, res) => {
-		// returns JSON of all friends that have submitted surveys
-		fs.readFile(__dirname + '/../data/friends2.js', 'utf8', (err, data) => {
+		fs.readFile(__dirname + '/../data/friends.js', 'utf8', (err, data) => {
 			if (err) throw err;
 			res.send(JSON.parse(data));
 		})
 	});
 
+	// saves a new profile and returns the closest match if applicable
 	app.post('/api/friends', (req, res) => {
-		fs.readFile(__dirname + '/../data/friends2.js','utf8', (err,data) => {
+		// read in current saved profiles
+		fs.readFile(__dirname + '/../data/friends.js','utf8', (err,data) => {
 			if (err) throw err;
 			var friendsData = JSON.parse(data);
-			friendsData.push(req.body);
-			fs.writeFile(__dirname + '/../data/friends2.js',JSON.stringify(friendsData),'utf8',(err) => { 
-				if (err) throw err; 
+			var equivalenceFlag = false;
+			var numFriends = friendsData.length;
+			// if posted profile already in saved profiles, tell client it's a duplicate
+			friendsData.forEach((friend) => {
+				if (isEquivalent(req.body, friend)) {
+					equivalenceFlag = true;
+				}
+			});
+			if (equivalenceFlag) {
+				res.send('duplicate');
+			} 
+			// otherwise, if not a duplicate, get the closest match
+			else {
+				// add posted profile to current saved friend profiles
+				friendsData.push(req.body);
+				// persist profiles
+				fs.writeFile(__dirname + '/../data/friends.js',JSON.stringify(friendsData),'utf8',(err) => { 
+				if (err) throw err;
+				// set the posted profile as the friend to match
 				var friendToMatch = req.body;
-				var smallestDiff = 100;
+				var smallestDiff = 100; // 100 is arbitrary, need a large initial value
 				var closestMatch;
+				// loop through the profiles in system, searching for best match
 				friendsData.forEach( (friend) => {
-					console.log(friend)
-					console.log(friend['responses[]'])
+					// if profile isn't the same person and if the profile difference is the
+					// smallest found, set the closest match to the current friend
 					if (!isEquivalent(friendToMatch, friend) && arrayDiff(friendToMatch['responses[]'], friend['responses[]']) < smallestDiff) {
 						closestMatch = friend;
 						smallestDiff = arrayDiff(friendToMatch['responses[]'], friend['responses[]']);
 					}
-			})
-				res.json('Closest match is: ' + JSON.stringify(closestMatch));
-			});
+				})
+					// send the closest match object and the number of profiles in system back to client
+					res.send([closestMatch,{numFriends: numFriends}]);
+				});
+			}
 		});
-	});
-
-	app.post('/api/clear', () => {
-		fs.writeFile(__dirname + '/../data/friends2.js', "[]", (err) => { if (err) throw err; })
 	});
 
 };
@@ -60,6 +77,3 @@ function isEquivalent(obj1, obj2) {
 		return false;
 	}
 }
-
-// console.log(arrayDiff([1,2,3],[4,6,7])); // should output 11
-// console.log(arrayDiff([1,1],[5,1])); // should output 4

@@ -4,21 +4,50 @@ var path = require('path');
 
 module.exports = function(app) {
 
-	// route for stylesheet
-	app.get('/css', (req,res) => {
-		res.sendFile(path.join(__dirname, '../public/style.css'));
-	})
+	// ROUTING FOR STYLESHEETS
+	// ****************************************************
+
+	// route for home stylesheet
+	app.get('/css/home', (req,res) => {
+		res.sendFile(path.join(__dirname, '../public/css/homestyle.css'));
+	});
+
+	// route for survey stylesheet
+	app.get('/css/survey', (req,res) => {
+		res.sendFile(path.join(__dirname, '../public/css/surveystyle.css'));
+	});
+
+	// ROUTING FOR SCRIPTS
+	// ****************************************************
+
+	// route for question data
+	app.get('/js/questions', (req,res) => {
+		res.sendFile(path.join(__dirname, '../public/javascript/questions.js'));
+	});
+
+	// route for helper functions
+	app.get('/js/helper_functions', (req,res) => {
+		res.sendFile(path.join(__dirname, '../public/javascript/helper_functions.js'));
+	});
+
+	// route for main survey page script
+	app.get('/js/init', (req,res) => {
+		res.sendFile(path.join(__dirname, '../public/javascript/init.js'));
+	});
+
+	// ROUTING FOR HTML PAGES
+	// ****************************************************
 
 	// route for survey page
 	app.get('/survey', (req, res) => {
 		// returns survey content
-		res.sendFile(path.join(__dirname, '../public/survey.html'));
+		res.sendFile(path.join(__dirname, '../public/html/survey.html'));
 	});
 
 	// route for home page
 	app.get('/:home?', (req, res) => {
 		// returns home page content
-		res.sendFile(path.join(__dirname, '../public/home.html'));
+		res.sendFile(path.join(__dirname, '../public/html/home.html'));
 	});
 
 };
